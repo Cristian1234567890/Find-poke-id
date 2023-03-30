@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Prueba diagnostica</title>
+  </head>
+  <body>
+    <h1>Buscador de Pokémon por nombre</h1>
+    <form>
+      <label for="pokemon">Nombre de pokemon:</label>
+      <input type="text" id="pokemon" name="pokemon">
+      <button type="button" onclick="buscarPokemon()">Leer ID</button>
+    </form>
+    <div id="resultado"></div>
+
+    <script>
+      function buscarPokemon() {
+        const nombrePokemon = document.getElementById("pokemon").value;
+        fetch(`https://pokeapi.co/api/v2/pokemon/${nombrePokemon}`)
+          .then(response => response.json())
+          .then(pokemon => {
+            const resultado = document.getElementById("resultado");
+            resultado.innerHTML = `El id del Pokémon ${pokemon.name} es ${pokemon.id}.`;
+          })
+          .catch(error => {
+            const resultado = document.getElementById("resultado");
+            resultado.innerHTML = `El Pokémon "${nombrePokemon}" no existe.`;
+          });
+      }
+    </script>
+  </body>
+</html>
